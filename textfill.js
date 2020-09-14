@@ -118,8 +118,8 @@ function textFill(containerElement, options) {
         if (options.debug === true) {
             console.log(
                 'TextFill JS:',
-                'Container Width is ', containerWidth, 'and text width is', textWidth, 'and container width is larger than text width: ' containerWidth > textWidth, 
-                'Container Height is ', containerHeight, 'and text height is', textHeight, 'and container height is larger than text height:' containerHeight > textHeight,
+                'Container Width is ', containerWidth, 'and text width is', textWidth, 'and container width is larger than text width: ', containerWidth > textWidth, 
+                'Container Height is ', containerHeight, 'and text height is', textHeight, 'and container height is larger than text height:', containerHeight > textHeight,
                 'Fons size decreased to: ', fontSize,
                 'Text is: ', textDiv.innerText
             );
