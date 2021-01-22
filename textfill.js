@@ -68,20 +68,19 @@ function textFillForElements(containerElements, options) {
 
 function textFill(containerElement, options) {
 
-    options = (typeof options === 'undefined') ? {} : options;
+    options = (typeof options == 'undefined') ? {} : options;
 
     // If some options set use that, else default
     options = { 
         minFontSize:     (typeof options.minFontSize != 'undefined') ? options.minFontSize : 8, 
         maxFontSize:     (typeof options.maxFontSize != 'undefined') ? options.maxFontSize : 30, 
-        setLineHeight:   (typeof options.setLineHeight != 'undefined') ? options.setLineHeight : false, 
-        lineHeightGap:   (typeof options.lineHeightgap != 'undefined') ? options.lineHeightGap : 0, 
+        lineHeightGap:   (typeof options.lineHeightGap != 'undefined') ? options.lineHeightGap : null, 
         disableWordWrap: (typeof options.disableWordWrap != 'undefined') ? options.disableWordWrap : false, 
         debug:           (typeof options.debug != 'undefined') ? options.debug : false, 
         firstElement:    (typeof options.firstElement != 'undefined') ? options.firstElement : 'div' 
     };
 
-    if (options.debug === true) {
+    if (options.debug == true) {
         console.log('TextFill JS: Run textfill');
     }
 
@@ -89,7 +88,7 @@ function textFill(containerElement, options) {
     var textDiv = containerElement.querySelector(options.firstElement);
 
     if (!textDiv) {
-        if (options.debug === true) {
+        if (options.debug == true) {
             console.log('TextFill JS:', options.firstElement, 'element not found inside container', containerElement);
         }
         return;
@@ -103,7 +102,7 @@ function textFill(containerElement, options) {
     var containerHeight = containerElement.offsetHeight;
 
     // Word wrap
-    if (options.disableWordWrap === true) {
+    if (options.disableWordWrap == true) {
         containerElement.style.whiteSpace = 'nowrap';
     }
 
@@ -115,13 +114,14 @@ function textFill(containerElement, options) {
         fontSize = fontSize - 1;
 
         // Log status
-        if (options.debug === true) {
+        if (options.debug == true) {
             console.log(
                 'TextFill JS:',
                 'Container Width is ', containerWidth, 'and text width is', textWidth, 'and container width is larger than text width: ', containerWidth > textWidth, 
                 'Container Height is ', containerHeight, 'and text height is', textHeight, 'and container height is larger than text height:', containerHeight > textHeight,
                 'Fons size decreased to: ', fontSize,
-                'Text is: ', textDiv.innerText
+                'Text is: ', textDiv.innerText,
+                'Line height gap is: ', options.lineHeightGap
             );
         }
 
@@ -130,7 +130,7 @@ function textFill(containerElement, options) {
         textDiv.style.fontSize = fontSize + 'px';
 
         // Set line height too
-        if (options.setLineHeight) {
+        if (options.lineHeightGap != null) {
             containerElement.style.lineHeight = (fontSize + options.lineHeightGap) + 'px';
         }
         

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Page Title</title>
+
+		<script src="textfill.js"></script>
+
+		<style>
+			.text-container {
+				width: 100px;
+				height: 120px;
+				border: 1px solid red;
+			}
+
+			.text {
+				
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="text-container">
+			<div class="text">
+				<span style="white-space: nowrap">Lorem ipsum dolor sit</span>  amet,
+				<span style="white-space: nowrap">consectetur</span> adipisicing elit 
+				<span style="white-space: nowrap">sed do eiusmod</span>
+			tempor incididunt ut labore et dolore magna aliqua.</div>
+		</div>
+
+		<script>
+			var element = document.querySelector('.text-container');
+			textFill(element, {debug: true, lineHeightGap: -4, firstElement: 'div'});
+		</script>
+	</body>
+</html>
