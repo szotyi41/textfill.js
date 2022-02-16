@@ -1,18 +1,3 @@
-/*
-*   textFill.js
-*   Buza Péter
-*
-*   How it works:
-*
-*   <div class="element-to-textfill"> <- Call function to this element
-*       <div class="first-div">Text in this div must wrap here</div>
-*   </div>
-*
-*   | Text in this |
-*   | div must     |
-*   | wrap here    |
-*
-*/
 function textFillListener(containerElements, options)
 {
     var containerElement;
@@ -52,7 +37,7 @@ function textFillForElements(containerElements, options) {
 
 
     // If you got more elements, set textFill for every element
-    if (containerElements.length !== 'undefined') {
+    if (containerElements.length) {
         for (var i = 0; i < containerElements.length; i++) {
             var containerElement = containerElements[i];
             textFill(containerElement, options);
@@ -80,16 +65,13 @@ function textFill(containerElement, options) {
         firstElement:    (typeof options.firstElement != 'undefined') ? options.firstElement : 'div' 
     };
 
-    if (options.debug == true) {
-        console.log('TextFill JS: Run textfill');
-    }
-
     // Get first element in container
     var textDiv = containerElement.querySelector(options.firstElement);
 
+
     if (!textDiv) {
         if (options.debug == true) {
-            console.log('TextFill JS:', options.firstElement, 'element not found inside container', containerElement);
+            console.log('TextFill:', options.firstElement, 'element not found inside container', containerElement);
         }
         return;
     }
@@ -98,8 +80,8 @@ function textFill(containerElement, options) {
     var fontSize = parseInt(options.maxFontSize);
     var textWidth;
     var textHeight;
-    var containerWidth = containerElement.offsetWidth;
-    var containerHeight = containerElement.offsetHeight;
+    var containerWidth = parseInt(containerElement.getBoundingClientRect().width);
+    var containerHeight = parseInt(containerElement.getBoundingClientRect().height);
 
     // Word wrap
     if (options.disableWordWrap == true) {
@@ -107,26 +89,27 @@ function textFill(containerElement, options) {
     }
 
     do {
-        textWidth = textDiv.offsetWidth;
-        textHeight = textDiv.offsetHeight;
+        textDiv.style.fontSize = fontSize + 'px';
+
+        textWidth = parseInt(textDiv.getBoundingClientRect().width);
+        textHeight = parseInt(textDiv.getBoundingClientRect().height);
 
         // Increase font size
         fontSize = fontSize - 1;
 
         // Log status
         if (options.debug == true) {
-            console.log(
-                'TextFill JS:',
-                'Container Width is ', containerWidth, 'and text width is', textWidth, 'and container width is larger than text width: ', containerWidth > textWidth, 
-                'Container Height is ', containerHeight, 'and text height is', textHeight, 'and container height is larger than text height:', containerHeight > textHeight,
-                'Fons size decreased to: ', fontSize,
-                'Text is: ', textDiv.innerText,
-                'Line height gap is: ', options.lineHeightGap
-            );
+            console.table({
+                'Text': textDiv.innerText,
+                'Container Width': containerWidth, 
+                'Text Width': textWidth + ((containerWidth > textWidth) ? ' ✅' : ' 😡'),
+                'Container Height': containerHeight, 
+                'Text Height': textHeight + ((containerHeight > textHeight) ? ' ✅' : ' 😡'),
+                'Font size decreased to': fontSize + ' ⬇️'
+            }); 
         }
 
         // Set font size
-        textDiv.style.display = 'inline';
         textDiv.style.fontSize = fontSize + 'px';
 
         // Set line height too
