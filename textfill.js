@@ -90,6 +90,8 @@ function textFill(containerElement, options) {
 
     do {
         textDiv.style.fontSize = fontSize + 'px';
+        textDiv.style.margin = 0;
+        textDiv.style.padding = 0;
 
         textWidth = parseInt(textDiv.getBoundingClientRect().width);
         textHeight = parseInt(textDiv.getBoundingClientRect().height);
